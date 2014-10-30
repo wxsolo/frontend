@@ -1,16 +1,11 @@
 {
-  "name": "frontend",
+  "name": "slowlytime",
   "version": "0.0.1",
   "homepage": "https://github.com/huip/frontend",
   "authors": [
     "huip <penghui1012@gmail.com>"
   ],
-  "description": "this is slowlytime front end project",
-  "keywords": [
-    "slowlytime"
-  ],
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -18,11 +13,9 @@
     "test",
     "tests"
   ],
-  "dependencies": {    
-    "angular": "1.2.0-rc.1",    
-    "bootstrap": "~3.0.0",    
-    "jquery": "~2.0.3",    
-    "lodash": "*",
-    "seajs": "*"
+  "devDependencies": {
+    "seajs": "~2.3.0",
+    "angular": "~1.3.0",
+    "lodash": "~2.4.1"
   }
 }
