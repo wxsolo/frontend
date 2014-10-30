@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var gulp = require('gulp');
 var less = require('gulp-less');
 var watch = require('gulp-watch');
 var del = require('del');
@@ -10,6 +9,7 @@ var htmlmin = require('gulp-htmlmin');
 var minifyCss = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var rev = require('gulp-rev');
+var coffee = require('gulp-coffee');
 var modRewrite = require('connect-modrewrite');
 
 gulp.task('clean:css', function () {  
@@ -18,6 +18,14 @@ gulp.task('clean:css', function () {
 
 gulp.task('clean:build', function () {  
   del.sync('dist/', {force: true})
+});
+
+gulp.task('less', ['clean:css'], function () {
+  var stream = gulp
+    .src(['app/assets/styles/*.less'])
+    .pipe(less())
+    .pipe(gulp.dest('app/assets/styles/dist/'));
+  return stream;
 });
 
 gulp.task('connect', function () {
@@ -42,31 +50,37 @@ gulp.task('connect', function () {
   });
 });
 
+gulp.task('coffee', function() {
+  gulp.src('app/assets/scripts/*.coffee')
+    .pipe(coffee({bare: false}))
+    .pipe(gulp.dest('app/assets/scripts/dist/'))
+});
+
 gulp.task('watch', function () {
   gulp
-    .src(['app/styles/**/*.less', '!app/styles/materialFix.less'], {read: false})
+    .src(['app/assets/styles/*.less'], {read: false})
     .pipe(watch(function () {
       return gulp
-        .src('app/styles/main.less')
+        .src('app/assets/styles/main.less')
         .pipe(less())
-        .pipe(gulp.dest('app/styles/'))
+        .pipe(gulp.dest('app/assets/styles/dist/'))
         .pipe(connect.reload());
   }));
 
   gulp
-    .src('app/styles/materialFix.less')
+    .src('app/assets/scripts/*.coffee')
     .pipe(watch())
-    .pipe(less())
-    .pipe(gulp.dest('app/styles/'))
+    .pipe(coffee())
+    .pipe(gulp.dest('app/assets/scripts/dist/'))
     .pipe(connect.reload());
 
   gulp
-    .src(['app/scripts/**/*.js', 'app/**/*.html'])
+    .src(['app/**/*.html'])
     .pipe(watch())
     .pipe(plumber())
     .pipe(connect.reload());
 });
 
-gulp.task('server', ['less', 'connect', 'watch']);
+gulp.task('server', ['connect', 'watch','coffee']);
 gulp.task('build', ['clean:build', 'minify']);
 
