@@ -61,7 +61,7 @@ gulp.task('watch', function () {
     .src(['app/assets/styles/*.less'], {read: false})
     .pipe(watch(function () {
       return gulp
-        .src('app/assets/styles/main.less')
+        .src('app/assets/styles/style.less')
         .pipe(less())
         .pipe(gulp.dest('app/assets/styles/dist/'))
         .pipe(connect.reload());

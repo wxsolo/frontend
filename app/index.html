@@ -1,9 +1,16 @@
-<html ng-app >
+<!DOCTYPE html>
+<html ng-app lang="en" >
   <head>
     <title>test</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">        <meta name="description" content="">        
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1 user-scalable=0">
+    <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/styles/dist/style.css">
   </head>
   <body>
-    hello {{'word'}}
+    <div ng-include="'/components/header/header.html'"></div>
+    <div ng-view></div>
   </body>
   <script src="/assets/bower_components/seajs/dist/sea.js"></script>
   <script src="/assets/scripts/dist/config.sample.js"></script>
